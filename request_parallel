@@ -1,0 +1,24 @@
+#!/bin/bash
+
+curl -w foo http://localhost:8081/ &
+curl -w bar http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+curl -w baz http://localhost:8081/ &
+
+wait
