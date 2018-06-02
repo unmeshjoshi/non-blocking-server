@@ -1,3 +1,5 @@
+package com.reactive.server
+
 import java.util.concurrent.Executors
 
 import akka.actor.ActorSystem
@@ -7,13 +9,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 
 import scala.concurrent.duration.DurationInt
-import scala.concurrent.{
-  ExecutionContext,
-  ExecutionContextExecutor,
-  ExecutionContextExecutorService,
-  Future
-}
-import scala.io.StdIn
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, ExecutionContextExecutorService, Future}
 
 object AkkaServer extends App {
 
@@ -36,14 +32,6 @@ object AkkaServer extends App {
   }
 
   val bindingFuture = Http().bindAndHandle(route, "localhost", 8082)
-
-  println(s"Server online at http://localhost:8081/\nPress RETURN to stop...")
-  StdIn.readLine()
-
-  bindingFuture.flatMap(_.unbind()).onComplete { _ =>
-    counter.shutdown()
-    system.terminate()
-  }
 }
 
 class Counter {

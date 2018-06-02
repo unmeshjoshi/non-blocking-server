@@ -10,6 +10,7 @@ val akkaVersion = "2.5.7"
 
 lazy val `non-blocking-server` = project
   .in(file("."))
+  .enablePlugins(JavaAppPackaging)
   .settings(
     scalaVersion := "2.12.4",
     scalacOptions in Compile ++= Seq("-encoding", "UTF-8", "-target:jvm-1.8", "-deprecation", "-feature", "-unchecked", "-Xlog-reflective-calls", "-Xlint"),
