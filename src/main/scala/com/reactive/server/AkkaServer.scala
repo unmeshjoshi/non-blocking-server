@@ -31,7 +31,7 @@ object AkkaServer extends App {
     }
   }
 
-  val bindingFuture = Http().bindAndHandle(route, "localhost", 8082)
+  val bindingFuture = Http().bindAndHandle(route, new Networks().hostname(), 8082)
 }
 
 class Counter {
