@@ -1,6 +1,7 @@
 package com.reactive.server
 
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -17,14 +18,14 @@ object AkkaServer extends App {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-  val counter = new Counter
+  val counter = new AtomicInteger(0)
 
   val route: Route = get {
     path("") {
       get {
         complete {
           akka.pattern.after(100.millis, system.scheduler) {
-            counter.next().map(x => s"request$x")
+            Future(s"request$counter.getAndIncrement()")
           }
         }
       }
@@ -32,18 +33,4 @@ object AkkaServer extends App {
   }
 
   val bindingFuture = Http().bindAndHandle(route, new Networks().hostname(), 8082)
-}
-
-class Counter {
-  private implicit val ec: ExecutionContextExecutorService =
-    ExecutionContext.fromExecutorService(Executors.newSingleThreadExecutor())
-
-  private var value = 0
-
-  def next(): Future[Int] = Future {
-    value += 1
-    value
-  }
-
-  def shutdown(): Unit = ec.shutdown()
 }
